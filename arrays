@@ -1,0 +1,326 @@
+//ejercicio 1//
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+int main() {
+    int N;
+    cout << "Ingrese el número de personas: ";
+    cin >> N;
+
+    // Verificar si N es un entero positivo
+    if (N <= 0) {
+        cout << "El número de personas debe ser un entero positivo." << endl;
+        return 1; // Salir del programa con código de error
+    }
+
+    vector<double> alturas(N);
+    double sumaAlturas = 0;
+
+    // Leer las alturas y calcular la suma
+    for (int i = 0; i < N; ++i) {
+        cout << "Ingrese la altura de la persona " << (i + 1) << " en centímetros: ";
+        cin >> alturas[i];
+        sumaAlturas += alturas[i];
+    }
+
+    // Calcular la altura media
+    double alturaMedia = sumaAlturas / N;
+
+    // Contar personas con altura superior e inferior a la media
+    int personasSuperiorMedia = 0, personasInferiorMedia = 0;
+    for (int i = 0; i < N; ++i) {
+        if (alturas[i] > alturaMedia) {
+            personasSuperiorMedia++;
+        } else if (alturas[i] < alturaMedia) {
+            personasInferiorMedia++;
+        }
+    }
+
+    // Mostrar resultados
+    cout << "La altura media de las personas es: " << alturaMedia << " cm." << endl;
+    cout << "Cantidad de personas con altura superior a la media: " << personasSuperiorMedia << endl;
+    cout << "Cantidad de personas con altura inferior a la media: " << personasInferiorMedia << endl;
+
+    return 0;
+}
+
+//ejercicio 2//
+#include <iostream>
+
+using namespace std;
+
+int main() {
+    const int tamano = 10;
+    int numeros[tamano];
+
+    // Llenar el array con números ingresados por el usuario
+    cout << "Ingrese " << tamano << " números enteros:" << endl;
+    for (int i = 0; i < tamano; ++i) {
+        cout << "Número " << (i + 1) << ": ";
+        cin >> numeros[i];
+    }
+
+    // Calcular la media de los valores positivos y negativos
+    double sumaPositivos = 0, sumaNegativos = 0;
+    int countPositivos = 0, countNegativos = 0;
+    for (int i = 0; i < tamano; ++i) {
+        if (numeros[i] > 0) {
+            sumaPositivos += numeros[i];
+            countPositivos++;
+        } else if (numeros[i] < 0) {
+            sumaNegativos += numeros[i];
+            countNegativos++;
+        }
+    }
+
+    // Mostrar resultados
+    if (countPositivos > 0) {
+        cout << "La media de los valores positivos es: " << sumaPositivos / countPositivos << endl;
+    } else {
+        cout << "No hay valores positivos en el array." << endl;
+    }
+
+    if (countNegativos > 0) {
+        cout << "La media de los valores negativos es: " << sumaNegativos / countNegativos << endl;
+    } else {
+        cout << "No hay valores negativos en el array." << endl;
+    }
+
+    return 0;
+}
+
+//ejercicio 3//
+#include <iostream>
+
+using namespace std;
+
+int main() {
+    const int tamano = 10;
+    int numeros[tamano];
+    int positivos = 0, negativos = 0, ceros = 0;
+
+    // Leer los números ingresados por el usuario
+    cout << "Ingrese " << tamano << " números enteros:" << endl;
+    for (int i = 0; i < tamano; i++) {
+        cout << "Número " << (i + 1) << ": ";
+        cin >> numeros[i];
+    }
+
+    // Contar positivos, negativos y ceros
+    for (int i = 0; i < tamano; i++) {
+        if (numeros[i] > 0) {
+            positivos++;
+        } else if (numeros[i] < 0) {
+            negativos++;
+        } else {
+            ceros++;
+        }
+    }
+
+    // Mostrar resultados
+    cout << "Cantidad de números positivos: " << positivos << endl;
+    cout << "Cantidad de números negativos: " << negativos << endl;
+    cout << "Cantidad de ceros: " << ceros << endl;
+
+    return 0;
+}
+
+//ejercicio 4//
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+class ClaseAlumnos {
+private:
+    vector<double> alturas;
+
+public:
+    void leerAlturas(int N) {
+        alturas.resize(N);
+        for (int i = 0; i < N; ++i) {
+            cout << "Altura del alumno " << (i + 1) << " en centímetros: ";
+            cin >> alturas[i];
+        }
+    }
+
+    double calcularMedias() {
+        double suma = 0;
+        for (double altura : alturas) {
+            suma += altura;
+        }
+        return suma / alturas.size();
+    }
+
+    void mostrarResultados(double media) {
+        int mayores = 0, menores = 0;
+        cout << "Alturas de los alumnos:" << endl;
+        for (double altura : alturas) {
+            cout << altura << " cm" << endl;
+            if (altura > media) {
+                mayores++;
+            } else if (altura < media) {
+                menores++;
+            }
+        }
+        cout << "Número de alumnos con altura superior a la media: " << mayores << endl;
+        cout << "Número de alumnos con altura inferior a la media: " << menores << endl;
+    }
+};
+
+int numeroAlumnos() {
+    int N;
+    cout << "Ingrese el número de alumnos de la clase: ";
+    cin >> N;
+    return N;
+}
+
+int main() {
+    ClaseAlumnos clase;
+    int N = numeroAlumnos();
+    clase.leerAlturas(N);
+    double media = clase.calcularMedias();
+    clase.mostrarResultados(media);
+    return 0;
+}
+
+//ejercicio 1 python//
+def calcular_altura_media(alturas):
+    suma_alturas = sum(alturas)
+    return suma_alturas / len(alturas)
+
+def contar_alturas(alturas, media):
+    mayores = sum(altura > media for altura in alturas)
+    menores = sum(altura < media for altura in alturas)
+    return mayores, menores
+
+def main():
+    while True:
+        try:
+            N = int(input("Ingrese el número de personas: "))
+            if N <= 0:
+                raise ValueError("El número de personas debe ser un entero positivo.")
+            break
+        except ValueError as e:
+            print(e)
+
+    alturas = []
+    for i in range(N):
+        while True:
+            try:
+                altura = float(input(f"Ingrese la altura de la persona {i+1} en centímetros: "))
+                alturas.append(altura)
+                break
+            except ValueError:
+                print("Ingrese una altura válida.")
+
+    media = calcular_altura_media(alturas)
+    mayores, menores = contar_alturas(alturas, media)
+
+    print("Altura media de las personas:", media, "cm")
+    print("Cantidad de personas con altura superior a la media:", mayores)
+    print("Cantidad de personas con altura inferior a la media:", menores)
+
+if __name__ == "__main__":
+    main()
+
+//ejercicio 2 en python//
+def main():
+    # Leer los números ingresados por el usuario y almacenarlos en un array
+    numeros = []
+    for i in range(10):
+        while True:
+            try:
+                numero = int(input(f"Ingrese el número {i+1}: "))
+                numeros.append(numero)
+                break
+            except ValueError:
+                print("Por favor, ingrese un número entero válido.")
+
+    # Calcular la media de los valores positivos y negativos
+    positivos = [num for num in numeros if num > 0]
+    negativos = [num for num in numeros if num < 0]
+
+    media_positivos = sum(positivos) / len(positivos) if positivos else 0
+    media_negativos = sum(negativos) / len(negativos) if negativos else 0
+
+    # Mostrar los resultados
+    print("Media de los valores positivos:", media_positivos)
+    print("Media de los valores negativos:", media_negativos)
+
+if __name__ == "__main__":
+    main()
+
+//ejercicio 3 en python//
+def main():
+    # Leer los números ingresados por el usuario y almacenarlos en un array
+    numeros = []
+    for i in range(10):
+        while True:
+            try:
+                numero = int(input(f"Ingrese el número {i+1}: "))
+                numeros.append(numero)
+                break
+            except ValueError:
+                print("Por favor, ingrese un número entero válido.")
+
+    # Contar los números positivos, negativos y ceros
+    positivos = sum(1 for num in numeros if num > 0)
+    negativos = sum(1 for num in numeros if num < 0)
+    ceros = sum(1 for num in numeros if num == 0)
+
+    # Mostrar los resultados
+    print("Cantidad de números positivos:", positivos)
+    print("Cantidad de números negativos:", negativos)
+    print("Cantidad de ceros:", ceros)
+
+if __name__ == "__main__":
+    main()
+
+//ejercicio 4 en python//
+def numero_alumnos():
+    while True:
+        try:
+            num_alumnos = int(input("Ingrese el número de alumnos de la clase: "))
+            if num_alumnos <= 0:
+                raise ValueError("El número de alumnos debe ser un entero positivo.")
+            return num_alumnos
+        except ValueError as e:
+            print(e)
+
+def leer_alturas(num_alumnos):
+    alturas = []
+    for i in range(num_alumnos):
+        while True:
+            try:
+                altura = float(input(f"Ingrese la altura del alumno {i + 1} en centímetros: "))
+                alturas.append(altura)
+                break
+            except ValueError:
+                print("Por favor, ingrese una altura válida.")
+    return alturas
+
+def calcular_media(alturas):
+    return sum(alturas) / len(alturas) if alturas else 0
+
+def mostrar_resultados(alturas, media):
+    mayores = sum(1 for altura in alturas if altura > media)
+    menores = sum(1 for altura in alturas if altura < media)
+
+    print("Alturas de los alumnos:")
+    for i, altura in enumerate(alturas, 1):
+        print(f"Alumno {i}: {altura} cm")
+
+    print("Cantidad de alumnos con altura superior a la media:", mayores)
+    print("Cantidad de alumnos con altura inferior a la media:", menores)
+
+def main():
+    num_alumnos = numero_alumnos()
+    alturas = leer_alturas(num_alumnos)
+    media = calcular_media(alturas)
+    mostrar_resultados(alturas, media)
+
+if __name__ == "__main__":
+    main()
